@@ -31,12 +31,7 @@
             <groupId>com.github.everit-org.json-schema</groupId>
             <artifactId>org.everit.json.schema</artifactId>
             <version>1.12.1</version>
-        </dependency>
-        <dependency>
-            <groupId>com.mmm.crsl</groupId>
-            <artifactId>data-exchange-catalog-java-sdk</artifactId>
-            <version>0.2.84</version>
-        </dependency>
+             </dependency>
 
 
     </dependencies>
