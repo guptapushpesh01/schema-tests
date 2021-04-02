@@ -1,4 +1,4 @@
-package com.pushpesh.schematests;
+package com.pushpesh.schematests.old;
 
 
 import java.nio.ByteBuffer;
@@ -199,7 +199,7 @@ public class JsonGenericRecordReader {
         Schema schema = new Schema.Parser().setValidate(true).parse(destinationSchema);
         try {
             GenericData.Record record = jsonGenericRecordReader.read(jsonText.getBytes(), schema);
-            System.out.println(record.toString());
+            System.out.println(record);
         } catch (Exception e) {
             e.printStackTrace();
         }

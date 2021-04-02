@@ -1,4 +1,4 @@
-package com.pushpesh.schematests;
+package com.pushpesh.schematests.old;
 
 import org.apache.avro.Schema;
 import org.apache.avro.generic.GenericDatumWriter;
@@ -11,7 +11,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
-public class SchemaTest2 {
+public class SchemaJSONGeneratorTest
+{
     public static void main(String[] args) {
         String destinationSchema  = "{\"type\":\"record\",\"name\":\"FirstName\",\"namespace\":\"com.example\",\"fields\":[{\"name\":\"first_name\",\"type\" : [ \"null\", \"string\" ],\"default\" : null}, {\"name\": \"last_name\", \"type\" : [ \"null\", \"string\" ], \"default\" : null}]}";
         String jsonText = "{\"first_name\" : \"pushpesh\"}";
