@@ -1,6 +1,6 @@
-package com.pushpesh.schematests;
+package com.pushpesh.schematests.old;
 
-import com.amazonaws.util.IOUtils;
+import org.apache.commons.io.IOUtils;
 import com.fasterxml.jackson.core.FormatSchema;
 import com.fasterxml.jackson.core.JsonEncoding;
 import com.fasterxml.jackson.core.JsonFactory;
@@ -33,42 +33,25 @@ public class SchemaTests {
         String jsonText = "{\"first_name\" : \"pushpesh\"}";
 
         ObjectMapper mapper = new ObjectMapper();
-        JsonFactory factory = new JsonFactory();
-        AvroMapper avroMapper = new AvroMapper();
 
         //Schema destSchema = new Schema.Parser().setValidate(true).parse(destinationSchema);
         try {
             Schema destSchema = new Schema.Parser().parse(destinationSchema);
             JsonNode jsonNode = mapper.readTree(jsonText);
+
             ObjectWriter writer = mapper.writer();
             byte[] bytes = writer.writeValueAsBytes(jsonNode);
             ByteArrayInputStream bInput = new ByteArrayInputStream(bytes);
             ByteArrayOutputStream bOutput = new ByteArrayOutputStream();
             IOUtils.copy(bInput, bOutput);
 
-            FormatSchema formatSchema = new FormatSchema() {
-              @Override
-              public String getSchemaType() {
-                return "json";
-              }
-            };
-
             JsonFactory  jsonFactory = new JsonFactory();
-            JsonGenerator jsonGenerator = jsonFactory.createGenerator(bOutput);
-            jsonGenerator.setSchema(formatSchema);
+            JsonGenerator jsonGenerator = jsonFactory.createGenerator(bOutput, JsonEncoding.UTF8);
+               //= jsonFactory.createParser(destinationSchema);
 
+        //    jsonGenerator.setSchema(schema);
 
-//          ByteArrayInputStream bInput = new ByteArrayInputStream(bytes);
-//          ByteArrayOutputStream bOutput = new ByteArrayOutputStream();
-//          IOUtils.copy(bInput, bOutput);
-//
-//            Schema destSchema = new Schema.Parser().parse(destinationSchema);
-//            AvroSchema schema = avroMapper.schemaFor(destSchema.getClass());
-//            AvroFactory  avroFactory = new AvroFactory();
-//            AvroGenerator avroGenerator = avroFactory.createGenerator(bOutput, JsonEncoding.UTF8);
-//
-//            avroGenerator.setSchema(schema);
-//            avroMapper.writeTree(avroGenerator, jsonNode);
+            jsonGenerator.writeTree(jsonNode);
 
         } catch (JsonMappingException e) {
             e.printStackTrace();
